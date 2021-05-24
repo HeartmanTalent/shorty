@@ -20,6 +20,5 @@ class Visit(models.Model):
     short = models.ForeignKey(
         'Short', blank=False, null=True, unique=False, on_delete=models.CASCADE)
 
-# perfect lengthen 
 # social media signup
 # simple style

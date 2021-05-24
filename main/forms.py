@@ -8,7 +8,8 @@ class ShortForm(forms.ModelForm):
     class Meta:
         model = Short
         fields = ['long_url']
-    long_url = forms.CharField(label='LONG URL') 
+    long_url = forms.CharField(label='LONG URL', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'type': 'text', 'required': 'required', 'placeholder': 'LONG URL'}))
 
     def clean(self):
         cleaned_data = self.cleaned_data
@@ -22,5 +23,5 @@ class ShortForm(forms.ModelForm):
             r'(?::\d+)?'  # optional port
             r'(?:/?|[/?]\S+)$', re.IGNORECASE)
 
-        if not  re.match(long_url, url_regex):
+        if not re.match(long_url, url_regex):
             raise forms.ValidationError("Invalid URL")
