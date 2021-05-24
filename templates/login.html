@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block path%}
+<a class="p-2 text-dark" href="{% url 'index' %}">Home</a>
+<a class="p-2 text-dark" href="{% url 'analysis' %}">Analysis</a>
+
+{% endblock%}
+{% block container %}
+<div class="container">
+    <div class="card-deck mb-3 text-center">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Shorten your url</h4>
+            </div>
+            <div class="card-body">
+                <button class="btn btn-lg btn-danger">
+                    <a href="#" class="text-white">Login with Instagram</a>
+                </button>
+                <button class="btn btn-lg btn-primary">
+                    <a href="#" class="text-white">Login with Facebook
+                    </a>
+                </button>
+                <button class="btn btn-lg  btn-info">
+                    <a href="#" class="text-white">Login with LinkedIn</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

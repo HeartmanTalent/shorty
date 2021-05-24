@@ -100,3 +100,7 @@ def delete(request, id):
             return redirect('analysis')
     else:
         return redirect('analysis')
+
+
+def login(request):
+    return render(request, 'login.html')
