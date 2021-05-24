@@ -3,11 +3,15 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 
+
 class Short(models.Model):
     long_url = models.URLField(_("Long URL"), null=False)
     short_url = models.TextField(_("Short URL"), null=False)
     user = models.ForeignKey(
         User, blank=True, null=True, unique=False, on_delete=models.CASCADE)
+
+    class Meta(object):
+        unique_together = [['long_url', 'user']]
 
 
 class Visit(models.Model):

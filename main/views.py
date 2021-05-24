@@ -86,3 +86,17 @@ def lengthen(request, slug):
             return redirect('index')
     else:
         return redirect('index')
+
+
+def delete(request, id):
+    if request.method == 'GET':
+        try:
+            short = Short.objects.get(id=id)
+            short.delete()
+            messages.add_message(request, messages.INFO, "URL Deleted")
+            return redirect('analysis')
+        except Short.DoesNotExist:
+            messages.add_message(request, messages.INFO, "URL does not exist")
+            return redirect('analysis')
+    else:
+        return redirect('analysis')

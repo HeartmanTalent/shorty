@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main'
+    'main',
+    'social_django'
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,9 @@ IP_GEOLOCATION_SETTINGS = {
     'FORCE_IP_ADDR': None,
     'USER_CONSENT_VALIDATOR': None
 }
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.linkedin.LinkedinOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
