@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <title>
+        SHORTY
+    </title>
+    <script>
+        function copy(id) {
+            that=document.getElementById(id);
+            var inp = document.createElement('input');
+            document.body.appendChild(inp)
+            inp.value = that.textContent
+            inp.select();
+            document.execCommand('copy', false);
+            inp.remove();
+        }
+    </script>
+</head>
+
+<body>
+    <form method='post' action="{% url 'shorten' %}">
+        {% csrf_token %}
+        {{form.as_table}}
+        <input type="submit" value="Shorten" />
+    </form>
+    {% if short_url%}
+    <ul>
+        <li>
+            Short URL : <a href="{{short_url}}" id="myInput">{{site}}/{{short_url}}</a>
+            <button onclick="copy('myInput')">copy</button>
+        </li>
+        <li>
+            Long URL : <a href="{{long_url}}" >{{long_url}}</a>
+            
+        </li>
+    </ul>
+    {% endif %}
+
+
+    <a href="{% url 'analysis' %}">Analysis</a>
+</body>
+
+</html>

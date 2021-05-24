@@ -1,0 +1,21 @@
+<html>
+
+<head>
+    <title>
+        SHORTY
+    </title>
+</head>
+
+<body>
+   {% if shorts %}
+    <ul>
+        {% for short in shorts %}
+        <li>
+           <a href="{{short.short_url}}">{{site}}/{{short.short_url}}</a> 
+        </li>
+        {% endfor%}
+    </ul>
+    {% endif %}
+</body>
+
+</html>
