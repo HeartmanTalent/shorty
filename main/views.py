@@ -1,3 +1,5 @@
+
+from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from .models import Short, Visit
 from .forms import ShortForm
@@ -38,7 +40,7 @@ def analysis(request):
     user = request.user
     site = get_current_site(request)
     if user.is_authenticated:
-        shorts = Short.objects.all(user=request.user)
+        shorts = Short.objects.filter(user=request.user)
     else:
         shorts = Short.objects.all()
     return render(request, 'analysis.html', {'shorts': shorts, 'site': site})
@@ -58,7 +60,7 @@ def index(request):
 def shorten(request):
     if request.method == 'POST':
         try:
-            form = ShortForm()
+            form = ShortForm(request.POST)
             long_url = request.POST['long_url']
             user = request.user
             short_url = short_url_generator()
@@ -72,16 +74,16 @@ def shorten(request):
 
             short.save()
             qr_code = qr_generator(str(site)+short_url)
-        except:
-            short_url = short_url_generator()
-            short = Short(long_url=long_url, short_url=short_url, user=user)
-            short.save()
-        return render(request, 'index.html', {'form': form,
-                                              'short_url': short_url,
-                                              'long_url': long_url,
-                                              'site': str(site),
-                                              'qr_code': qr_code})
+            return render(request, 'index.html', {'form': form,
+                                                  'short_url': short_url,
+                                                  'long_url': long_url,
+                                                  'site': str(site),
+                                                  'qr_code': qr_code})
+        except IntegrityError:
+            messages.add_message(request, messages.ERROR, "URL already exists")
+            return render(request, 'index.html', {'form': form})
     else:
+        messages.add_message(request, messages.INFO, "Wrong method")
         return redirect('index')
 
 
@@ -98,9 +100,10 @@ def lengthen(request, slug):
             visit.save()
             return redirect(long_url)
         except Short.DoesNotExist:
-            messages.add_message(request, messages.INFO, "URL does not exist")
+            messages.add_message(request, messages.ERROR, "URL does not exist")
             return redirect('index')
     else:
+        messages.add_message(request, messages.INFO, "Wrong method")
         return redirect('index')
 
 
@@ -109,12 +112,13 @@ def delete(request, id):
         try:
             short = Short.objects.get(id=id)
             short.delete()
-            messages.add_message(request, messages.INFO, "URL Deleted")
+            messages.add_message(request, messages.SUCCESS, "URL Deleted")
             return redirect('analysis')
         except Short.DoesNotExist:
-            messages.add_message(request, messages.INFO, "URL does not exist")
+            messages.add_message(request, messages.ERROR, "URL does not exist")
             return redirect('analysis')
     else:
+        messages.add_message(request, messages.INFO, "Wrong method")
         return redirect('analysis')
 
 

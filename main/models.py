@@ -6,9 +6,12 @@ from django.contrib.auth.models import User
 
 class Short(models.Model):
     long_url = models.URLField(_("Long URL"), null=False)
-    short_url = models.TextField(_("Short URL"), null=False)
+    short_url = models.CharField(_("Short URL"), max_length=50, null=False)
     user = models.ForeignKey(
         User, blank=True, null=True, unique=False, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.short_url)
 
     class Meta(object):
         unique_together = [['long_url', 'user']]
@@ -24,5 +27,7 @@ class Visit(models.Model):
     short = models.ForeignKey(
         'Short', blank=False, null=True, unique=False, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return str(self.id)
 # social media signup
 # simple style
