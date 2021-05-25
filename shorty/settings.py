@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '8t^gq07^tf!gyoz&lit_xjmhfed0dhx2y^%t@wlium-h)n0rpg'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -74,15 +74,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'shorty.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': str(BASE_DIR / 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -121,18 +118,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-IP_GEOLOCATION_SETTINGS = {
-    'BACKEND': 'django_ip_geolocation.backends.IPGeolocationAPI',
-    'BACKEND_API_KEY': '',
-    'BACKEND_EXTRA_PARAMS': {},
-    'BACKEND_USERNAME': '',
-    'RESPONSE_HEADER': 'X-IP-Geolocation',
-    'ENABLE_REQUEST_HOOK': True,
-    'ENABLE_RESPONSE_HOOK': True,
-    'ENABLE_COOKIE': False,
-    'FORCE_IP_ADDR': None,
-    'USER_CONSENT_VALIDATOR': None
-}
+
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.linkedin.LinkedinOAuth2',
     'social_core.backends.instagram.InstagramOAuth2',
@@ -140,6 +126,10 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'index'
 LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'login'
+
+
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')

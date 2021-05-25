@@ -9,20 +9,30 @@
     <div class="card-deck mb-3 text-center">
         <div class="card mb-4 shadow-sm">
             <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Shorten your url</h4>
+                <h4 class="my-0 font-weight-normal">Login with : </h4>
             </div>
             <div class="card-body">
                 <button class="btn btn-lg btn-danger">
-                    <a href="#" class="text-white">Login with Instagram</a>
+                    <a href="#" class="text-white">
+                        <i class="fa fa-instagram" onclick="copy('my2Input')" style="font-size:36px;">
+                        </i>
+                    </a>
                 </button>
-                <button class="btn btn-lg btn-primary">
-                    <a href="#" class="text-white">Login with Facebook
+                <button class="btn">
+                    <a href="{% url 'social:begin' 'facebook' %}" class="text-white">
+                        <i class="fa fa-facebook-f" onclick="copy('my2Input')"
+                            style="font-size:36px;color:#1C6EFd;text-shadow:2px 2px 4px lightblue;">
+                        </i>
                     </a>
                 </button>
                 <button class="btn btn-lg  btn-info">
-                    <a href="#" class="text-white">Login with LinkedIn</a>
+                    <a href="#" class="text-white">
+                        <i class="fa fa-linkedin" onclick="copy('my2Input')" style="font-size:36px;">
+                        </i>
+                    </a>
                 </button>
             </div>
         </div>
     </div>
 </div>
+{% endblock%}

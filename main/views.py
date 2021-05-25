@@ -5,6 +5,20 @@ import string
 import random
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
+import qrcode
+import qrcode.image.svg
+from io import BytesIO
+
+
+def qr_generator(qr_text):
+    context = {}
+    factory = qrcode.image.svg.SvgImage
+    img = qrcode.make(qr_text,
+                      image_factory=factory, box_size=20)
+    stream = BytesIO()
+    img.save(stream)
+    qr_code = stream.getvalue().decode()
+    return qr_code
 
 
 def short_url_generator(size=6, chars=string.ascii_uppercase + string.digits):
@@ -57,6 +71,7 @@ def shorten(request):
                               short_url=short_url)
 
             short.save()
+            qr_code = qr_generator(str(site)+short_url)
         except:
             short_url = short_url_generator()
             short = Short(long_url=long_url, short_url=short_url, user=user)
@@ -64,7 +79,8 @@ def shorten(request):
         return render(request, 'index.html', {'form': form,
                                               'short_url': short_url,
                                               'long_url': long_url,
-                                              'site': str(site)})
+                                              'site': str(site),
+                                              'qr_code': qr_code})
     else:
         return redirect('index')
 
