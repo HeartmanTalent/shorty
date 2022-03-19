@@ -16,20 +16,20 @@
             <div class="card-body">
                 <button class="btn btn-lg btn-danger">
                     <a href="{% url 'social:begin' 'instagram' %}" class="text-white">
-                        <i class="fa fa-instagram" onclick="copy('my2Input')" style="font-size:36px;">
+                        <i class="fa fa-instagram"  style="font-size:36px;">
                         </i>
                     </a>
                 </button>
                 <button class="btn">
                     <a href="{% url 'social:begin' 'facebook' %}" class="text-white">
-                        <i class="fa fa-facebook-f" onclick="copy('my2Input')"
+                        <i class="fa fa-facebook-f" 
                             style="font-size:36px;color:#1C6EFd;text-shadow:2px 2px 4px lightblue;">
                         </i>
                     </a>
                 </button>
                 <button class="btn btn-lg  btn-info">
-                    <a href="#" class="text-white">
-                        <i class="fa fa-linkedin" onclick="copy('my2Input')" style="font-size:36px;">
+                    <a href="{% url "social:begin" "google-oauth2" %}" class="text-white">
+                        <i class="fa fa-google"  style="font-size:36px;">
                         </i>
                     </a>
                 </button>
