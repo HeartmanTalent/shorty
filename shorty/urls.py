@@ -10,7 +10,7 @@ urlpatterns = [
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path('social-auth/', include('social_django.urls', namespace="social")),
     path('', index, name='index'),
-    re_path(r'^delete/(?P<id>\d+)/$', delete, name='delete'),
+    re_path(r'^delete/(?P<id>\w+)/$', delete, name='delete'),
     path('shorten', shorten, name='shorten'),
     re_path(
         r'^(?P<slug>\w+)/$', lengthen, name='lengthen'), #should always be at th bottom 
