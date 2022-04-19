@@ -61,10 +61,14 @@ def shorten(request):
     if request.method == 'POST':
         try:
             form = ShortForm(request.POST)
+            site = get_current_site(request)
+            if (site == 'shorty.heartmantalent.com'):
+                messages.add_message(
+                    request, messages.INFO, "Already short")
+                return redirect('index')
             long_url = request.POST['long_url']
             user = request.user
             short_url = short_url_generator()
-            site = get_current_site(request)
             if user.is_authenticated:
                 short = Short(long_url=long_url,
                               short_url=short_url, user=user)
