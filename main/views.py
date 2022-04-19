@@ -62,7 +62,8 @@ def shorten(request):
         try:
             form = ShortForm(request.POST)
             site = get_current_site(request)
-            if (site == 'shorty.heartmantalent.com'):
+            print(site)
+            if site == 'shorty.heartmantalent.com':
                 messages.add_message(
                     request, messages.INFO, "Already short")
                 return redirect('index')
