@@ -62,7 +62,7 @@ def shorten(request):
         try:
             form = ShortForm(request.POST)
             site = get_current_site(request)
-            print(site)
+            print(site == 'shorty.heartmantalent.com')
             if site == 'shorty.heartmantalent.com':
                 messages.add_message(
                     request, messages.INFO, "Already short")
