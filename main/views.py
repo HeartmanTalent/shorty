@@ -64,7 +64,7 @@ def shorten(request):
             site = get_current_site(request)
             if str(site) == 'shorty.heartmantalent.com':
                 messages.add_message(
-                    request, messages.INFO, "Already short")
+                    request, messages.ERROR, "Already short")
                 return redirect('index')
             long_url = request.POST['long_url']
             user = request.user
@@ -87,7 +87,7 @@ def shorten(request):
             messages.add_message(request, messages.ERROR, "URL already exists")
             return render(request, 'index.html', {'form': form})
     else:
-        messages.add_message(request, messages.INFO, "Wrong method")
+        messages.add_message(request, messages.ERROR, "Wrong method")
         return redirect('index')
 
 
