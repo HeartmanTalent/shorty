@@ -1,38 +1,38 @@
-{% extends 'base.html' %}
-{% block path%}
-<a class="p-2 text-dark" href="{% url 'index' %}">Home</a>
-{% endblock%}
+{% extends "base.html" %}
+{% block path %}
+    <a class="p-2 text-dark" href="{% url 'index' %}">Home</a>
+{% endblock path %}
 {% block container %}
-<main role="main" class="container">
-    {% if shorts %}
-    <div class="my-3 p-3 bg-white rounded shadow-sm">
-        <h6 class="border-bottom border-gray pb-2 mb-0">Urls</h6>
-        {% for short in shorts %}
-        <div class="media text-muted pt-3">
-            <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
-            <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                <div class="d-flex justify-content-between align-items-center w-100">
-                    <strong class="text-gray-dark">
-                        <a href="{{short.short_url}}" target="_blank" id="myInput">{{site}}/{{short.short_url}}</a>
-                    </strong>
-                    <strong class="text-gray-dark">
-                        <i class="fa fa-copy" onclick="copy('myInput')"
-                            style="font-size:24px;color:#1C6EFd;text-shadow:2px 2px 4px lightblue;"></i>
-                        &ensp;
-                        <a href="#"><i class="fa fa-info-circle"
-                                style="font-size:24px;color:#1C6EFd;text-shadow:2px 2px 4px lightblue;">
-                            </i></a>
-                        &ensp;
-                        <a href="{% url 'delete'  short.id %}"><i class="fa fa-trash"
-                                style="font-size:24px;color:#1C6EFd;text-shadow:2px 2px 4px lightblue;">
-                            </i></a>
-                    </strong>
-
-                </div>
+    <main role="main" class="container">
+        {% if shorts %}
+            <div class="my-3 p-3 bg-white rounded shadow-sm">
+                <h6 class="border-bottom border-gray pb-2 mb-0">Urls</h6>
+                {% for short in shorts %}
+                    <div class="media text-muted pt-3">
+                        <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1"
+                             width=""
+                             height=""
+                             alt=""
+                             class="mr-2 rounded"/>
+                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                            <div class="d-flex justify-content-between align-items-center w-100">
+                                <strong class="text-gray-dark">
+                                    <a href="{{ short.short_url }}" target="_blank" id="myInput">{{ site }}/{{ short.short_url }}</a>
+                                </strong>
+                                <strong class="text-gray-dark">
+                                    <i class="fa fa-copy" onclick="copy('myInput')"></i>
+                                    &ensp;
+                                    <a href="#"><i class="fa fa-info-circle">
+                                    </i></a>
+                                    &ensp;
+                                    <a href="{% url 'delete' short.id %}"><i class="fa fa-trash">
+                                    </i></a>
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-        </div>
-        {% endfor%}
         {% endif %}
-
-</main>
-{% endblock %}
+    </main>
+{% endblock container %}
